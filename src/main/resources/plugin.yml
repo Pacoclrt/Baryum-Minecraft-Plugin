@@ -1,0 +1,17 @@
+name: Baryum
+version: 1.0
+main: fr.pogzy.baryum.Baryum
+api-version: 1.21
+authors: [ Paco CLERET ]
+description: Plugin pour le Serveur play.baryum.org
+website: cleret.pro
+commands:
+  nether:
+    description: Téléporte dans le nether le joueur
+    usage: /nether
+  end:
+    description: Téléporte dans l'end le joueur
+    usage: /end
+  overworld:
+    description: Téléporte dans l'overworld le joueur
+    usage: /overworld
