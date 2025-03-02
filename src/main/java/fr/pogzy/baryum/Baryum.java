@@ -1,9 +1,14 @@
 package fr.pogzy.baryum;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.World;
 
@@ -17,6 +22,7 @@ public class Baryum extends JavaPlugin {
     @Override
     public void onEnable() {
         getLogger().info("Baryum plugin enabled!");
+        new ShopMenu(this);
     }
 
     @Override
@@ -50,6 +56,9 @@ public class Baryum extends JavaPlugin {
             } else if (command.getName().equalsIgnoreCase("overworld")) {
                 returnLastLocation(player);
                 return true;
+            } else if (command.getName().equalsIgnoreCase("shop")) {
+                openShopMenu(player);
+                return true;
             }
         }
         return false;
@@ -81,5 +90,36 @@ public class Baryum extends JavaPlugin {
         } else {
             player.sendMessage("La dimension " + environment.name().toLowerCase() + " n'est pas disponible.");
         }
+    }
+
+    private void openShopMenu(Player player) {
+        Inventory shopMenu = Bukkit.createInventory(null, 9, "Baryum Shop");
+
+        ItemStack foodItem = new ItemStack(Material.WHEAT);
+        ItemMeta foodMeta = foodItem.getItemMeta();
+        foodMeta.setDisplayName("Nourritures");
+        foodItem.setItemMeta(foodMeta);
+
+        ItemStack oresItem = new ItemStack(Material.DIAMOND);
+        ItemMeta oresMeta = oresItem.getItemMeta();
+        oresMeta.setDisplayName("Minerais");
+        oresItem.setItemMeta(oresMeta);
+
+        ItemStack blocksItem = new ItemStack(Material.GRASS_BLOCK);
+        ItemMeta blocksMeta = blocksItem.getItemMeta();
+        blocksMeta.setDisplayName("Blocs");
+        blocksItem.setItemMeta(blocksMeta);
+
+        ItemStack spawnersItem = new ItemStack(Material.SPAWNER);
+        ItemMeta spawnersMeta = spawnersItem.getItemMeta();
+        spawnersMeta.setDisplayName("Spawners");
+        spawnersItem.setItemMeta(spawnersMeta);
+
+        shopMenu.setItem(1, foodItem);
+        shopMenu.setItem(3, oresItem);
+        shopMenu.setItem(5, blocksItem);
+        shopMenu.setItem(7, spawnersItem);
+
+        player.openInventory(shopMenu);
     }
 }
